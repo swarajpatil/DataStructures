@@ -49,4 +49,39 @@ public class ExpressionTest {
         MathExpression mathExpression = new MathExpression("10+2");
         assertThat(mathExpression.isValid(),is(true));
     }
+
+    @Test
+    public void expressionInvalidWhenClosingBraceBeforeOpeningBrace()
+    {
+        MathExpression mathExpression = new MathExpression(")10+2(");
+        assertThat(mathExpression.isValid(),is(false));
+    }
+
+    @Test
+    public void expressionInvalidForDifferentTypeOfImbalacedBraces()
+    {
+        MathExpression mathExpression = new MathExpression("(10+2*[3+2[)");
+        assertThat(mathExpression.isValid(),is(false));
+    }
+
+    @Test
+    public void expressionValidForDifferentTypeOfBalacedBraces()
+    {
+        MathExpression mathExpression = new MathExpression("(10+2*[3+2]+100)");
+        assertThat(mathExpression.isValid(),is(true));
+    }
+
+    @Test
+    public void expressionInvalidBraceClosedWithDifferentBrace()
+    {
+        MathExpression mathExpression = new MathExpression("(10+2*[3+20)+100]");
+        assertThat(mathExpression.isValid(),is(false));
+    }
+
+    @Test
+    public void expressionValidThreeTypeOfBalancedBraces()
+    {
+        MathExpression mathExpression = new MathExpression("{(10+2)*[3+20]+100}");
+        assertThat(mathExpression.isValid(),is(true));
+    }
 }
